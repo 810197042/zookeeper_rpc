@@ -15,7 +15,7 @@ import org.apache.curator.framework.recipes.cache.NodeCache;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import com.alibaba.fastjson.JSONObject;
 import javax.annotation.Resource;
 import java.io.*;
 import java.lang.reflect.InvocationHandler;
@@ -66,8 +66,21 @@ class DemoApplicationTests {
 	ServiceRegister serviceRegister;
 	@Test
 	public void a() throws Exception {
-		String xzc = serviceRegister.registerPersistNode("/czcmimc", "xzc");
-		System.out.println(xzc);
+		JSONObject json = new JSONObject();
+		json.put("interfaceName", "invocation.getInterfaceName()");
+		json.put("methodName", "invocation.getMethodName()");
+		json.put("a",new String[]{"asd"});
+		json.put("parameters", new String[] {"123"});
+		json.put("class", Hello.class);
+		String s = json.toJSONString();
+		//Object parse = parser.parse(s);
+		//JSONObject object = (JSONObject) parser.parse(s);
+		//String interfaceName = (String) object.get("intefaceName");
+		JSONObject parse = (JSONObject) JSONObject.parse(s);
+		System.out.println(parse.get("a"));
+		System.out.println(parse.get("class"));
+		//String xzc = serviceRegister.registerPersistNode("/czcmimc", "xzc");
+		//System.out.println(xzc);
 		//zookeeperService.createPersistentNode("/rpc/Hello/127.0.0.1", "address1");
 	}
 	@Test

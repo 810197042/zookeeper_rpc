@@ -29,6 +29,7 @@ public class ClientProxy {
         //负载均衡选一//
         String address = loadBalance.getAddress(serverNodes);
         String result = new HttpClient().send(address, 8080, invocation);
+        //String result = new NIOClient().send(address, 8080, invocation);
         return result;
     }
 

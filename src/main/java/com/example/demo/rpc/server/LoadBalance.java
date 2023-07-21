@@ -1,5 +1,6 @@
 package com.example.demo.rpc.server;
 
+import com.example.demo.rpc.common.ConsistentHashingWithoutVirtualNode;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public class LoadBalance {
     }
     public String getAddress(List<String> addresses) {
         int i = random.nextInt(addresses.size());
-        return addresses.get(i);
+        return new ConsistentHashingWithoutVirtualNode(addresses).getServer(addresses.get(i));
     }
 }

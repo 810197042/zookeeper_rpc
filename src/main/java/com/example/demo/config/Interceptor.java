@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.rpc.common.Invocation;
 import com.example.demo.rpc.server.LocalRegister;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ public class Interceptor implements HandlerInterceptor {
             Class classImpl = localRegister.get(interfaceName);
             Method method = classImpl.getMethod(invocation.getMethodName(), invocation.getParameterTypes());
             String result = (String) method.invoke(classImpl.newInstance(), invocation.getParameters());
+
             //String result = "anxzczc";
             //Object result = new ObjectInputStream(request.getInputStream()).readObject();
            // IOUtils.write(result, response.getOutputStream());
